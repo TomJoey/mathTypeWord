@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>MathType for Word</title></head><body>
+<h1>MathType equations in Word</h1>
+<p>Lets NVDA read and navigate MathType and Equation Editor 3.0 equations in Microsoft Word without MathType's 32-bit DLL. Since NVDA became 64-bit (2026.1) NVDA's own MathType support no longer works (NVDA issue 20115). This add-on reads the equation data from Word, converts it to MathML in pure Python, and lets NVDA's math support (for example MathCAT) speak and navigate it.</p>
+<h2>Requirements</h2>
+<ul>
+<li>NVDA 2026.1 or later, Microsoft Word (Microsoft 365 / 2016 or later). MathType does not need to be installed.</li>
+<li>In NVDA settings, Math: turn <strong>off</strong> "Use native math support in Word and Outlook". When it is on, NVDA disables all math providers while Word has the focus.</li>
+<li>A math speech provider, for example MathCAT.</li>
+<li>For the best result the document should be saved as .docx. Equations of a saved document are read from the file, which is much faster than asking Word.</li>
+</ul>
+<h2>Word object model and UI Automation</h2>
+<p>Both reading modes are supported. In NVDA settings, Advanced, "Use UI Automation to access Microsoft Word document controls" can be "Only where necessary" or "Always". Changing it applies to newly opened Word windows.</p>
+<p>With UI Automation, Word does not give NVDA the equation itself. The add-on matches the equations through Word's object model. A match is only used when it is certain: the text of the range must equal what Word reports, the number of equations must agree and nothing else (pictures, shapes) may be in the range. In every other case the equation is left silent, never read wrongly.</p>
+<h2>Known limits</h2>
+<ul>
+<li>Only the main text of the document is supported (not text boxes, headers, footnotes).</li>
+<li>Templates of MathType that were never seen in test documents (matrices, big operators, ...) are converted but less tested.</li>
+<li>Speed: reading a line is dominated by NVDA's own Word code. Closing the MathType startup template and other Word COM add-ins makes Word noticeably faster.</li>
+</ul>
+<h2>Troubleshooting</h2>
+<p>Set the NVDA log level to Debug and look for lines starting with "mathTypeWord" in the log.</p>
+<h2>Disclaimer</h2>
+<p>This add-on is not affiliated with or endorsed by Wiris or Design Science. MathType is a trademark of its owners.</p>
+<h2>License</h2>
+<p>GNU General Public License version 2 or later. The bundled olefile library is distributed under its own BSD license (olefile-LICENSE.txt).</p>
+</body></html>

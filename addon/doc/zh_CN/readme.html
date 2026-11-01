@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>Word 中的 MathType 公式</title></head><body>
+<h1>Word 中的 MathType 公式</h1>
+<p>让 NVDA 在不依赖 MathType 32 位 DLL 的情况下，朗读、浏览 Microsoft Word 中的 MathType 和公式编辑器 3.0 公式。NVDA 自 2026.1 起为 64 位，自带的 MathType 支持已失效（NVDA issue 20115）。本插件从 Word 读取公式数据，用纯 Python 转成 MathML，再交给 NVDA 的数学支持（如 MathCAT）朗读和浏览。</p>
+<h2>要求</h2>
+<ul>
+<li>NVDA 2026.1 或更高版本，Microsoft Word（Microsoft 365 / 2016 及以上）。不需要安装 MathType。</li>
+<li>在 NVDA 设置的“数学”中，<strong>关闭</strong>“在 Word 和 Outlook 中使用原生数学支持”。开启时，NVDA 会在 Word 获得焦点时停用所有数学提供者。</li>
+<li>需要一个数学语音提供者，例如 MathCAT。</li>
+<li>文档最好保存为 .docx。已保存文档里的公式直接从文件读取，比向 Word 查询快得多。</li>
+</ul>
+<h2>对象模型与 UI Automation</h2>
+<p>两种读取方式都支持。在 NVDA 设置的“高级”中，“使用 UI Automation 访问 Microsoft Word 文档控件”可以选“仅在必要时”或“始终”。修改后对新打开的 Word 窗口生效。</p>
+<p>使用 UI Automation 时，Word 不会把公式本身交给 NVDA，插件通过 Word 对象模型来对应公式。只有在确定无误时才采用：该范围的文字必须与 Word 报告的一致，公式数量必须相符，范围内不能有图片等其他对象。其他情况下公式保持沉默，不会读错。</p>
+<h2>已知限制</h2>
+<ul>
+<li>只支持文档正文（不含文本框、页眉、脚注）。</li>
+<li>测试文档中没有出现过的 MathType 模板（矩阵、大型运算符等）已有转换代码，但测试较少。</li>
+<li>速度：读一行的耗时主要来自 NVDA 自己的 Word 代码。关闭 MathType 启动模板和其他 Word COM 加载项，Word 会明显变快。</li>
+</ul>
+<h2>排错</h2>
+<p>把 NVDA 日志级别设为“调试”，在日志中查找以 “mathTypeWord” 开头的行。</p>
+<h2>声明</h2>
+<p>本插件与 Wiris、Design Science 无关联，也未获其认可。MathType 是其所有者的商标。</p>
+<h2>许可证</h2>
+<p>GNU 通用公共许可证第 2 版或更高版本。随附的 olefile 库使用其自带的 BSD 许可证（olefile-LICENSE.txt）。</p>
+</body></html>
